@@ -5,65 +5,84 @@ We created this project to give you another example of how you can integrate the
   <img src="https://img.itch.zone/aW1hZ2UvMTU4NTg4LzcyNzg3Mi5wbmc=/original/AU5pWY.png" aref = />
 </p>
 
-## _APPCoins_ Plugin Integration Example
-This is a very simple demonstration of how you can change your game's logic to integrate _In-App Purchases_. The only adjustment we made was that after the player dies for the first time if he wants to play another time he has to buy a life.
+## _AppCoins_ Plugin Integration Example
+This is a very simple demonstration of how you can change your game's logic to integrate _AppCoins_ _In-App Purchases_. The only adjustment we made was that after the player dies for the first time if he wants to play another time he has to buy a life.
 
 Process of integration:
-1. Download Appcoins unity package [here](https://github.com/AppStoreFoundation/AppcoinsUnityPlugin/blob/develop/AppCoins_Unity_Package.unitypackage).
-2. At Unity open your game's folder and import the _Appcoins_ unity package you just downloaded. You can do this by clicking in Assets -> Import Package -> Custom Package... .You have to import everything except the '/Appcoins/Example' folder that is optional. This folder is just another integration example.
-![picture](Screenshots/Appcoins_Integration_2.gif)
+1. Download the plugin package corresponding to your Unity version. You can find them on the latest release [here](https://github.com/Aptoide/bds-unity-plugin/releases)
+2. At Unity open your game's folder and import the _Appcoins_ unity package you just downloaded. You can do this by clicking in Assets -> Import Package -> Custom Package... .You have to import everything except the '/AppcoinsUnity/Example' folder that is optional. This folder is just another integration example.
 
-3. Drag and drop to your hierarchy window the 'Assets/AppCoins/Prefabs/AppCoinsUnity.prefab' prefab file. ** Note:do not change the name of the AppcoinsUnity prefab.**
-![picture](Screenshots/Appcoins_Integration_3.gif)
-
-4. Open AppcoinsUnity game object in the inspector window and put the wallet's address where you want to receive your appcoins in the _Receiving Address_ slot.
-![picture](Screenshots/Appcoins_Integration_4.gif)
-
-5. The game logic we are changing is when the restart button is clicked we will redirect the game's flow, so on _OnReset_ method in _GameManager_ class we will call the _Purchaser's buyContinue_ method to deal with the purchase. (The _Purchaser_ class has to derive from _AppcoinsPurchaser_ class). My _Purchaser.cs_ file:
+4. On GameManager.cs define the product id and create and outlet to Purchaser class
 
 ```
-/* add this namespace to your script to give you  access to
-the plugin classes. */
-using Aptoide.AppcoinsUnity;
+public static string kProductIDConsumable = "continue";
 
-using RedRunner;
+[SerializeField]
+private Purchaser _purchaser;
+```
 
-public class Purchaser : AppcoinsPurchaser
+4. define success and failure functions for the purchase
+
+```
+private void OnPurchaseSuccess(AppcoinsProduct product)
 {
+    Debug.Log("On purchase success called with product: \n skuID: " + product.skuID + " \n type: " + product.productType);
 
-    //method gets called on successful purchases
-    public override void purchaseSuccess(string skuid)
+    if (product.skuID == kProductIDConsumable)
     {
-        base.purchaseSuccess(skuid);
-        //purchase is successful release the product
-
-        if (skuid == "continue")
-            GameManager.Singleton.OnPurchaseSuccessful();
+        Reset();
+        UIManager.Singleton.OpenInGameScreen();   
     }
-    //method gets called on failed purchases
-    public override void purchaseFailure(string skuid)
-    {
-        base.purchaseFailure(skuid);
-        //purchase failed perhaps show some error message
+}
 
-        GameManager.Singleton.OnPurchaseFailed();
-    }
+public void OnPurchaseFailed(AppcoinsProduct product)
+{
+    //If purchase failed show end screen again
+    UIManager.Singleton.OpenEndScreen();
+}
 
-    //example methods to initiate a purchase flow
-    /*the string parameter of the makePurchase method is the
-    skuid you specified in the inspector for each product */
-    public void buyContinue()
-    {
-        makePurchase("continue");
-    }
+```
+
+5. Define SetupPurchaser where the purchaser is initialized and the continue product is created.
+
+```
+void SetupPurchaser()
+{
+    Debug.Log("purchaser is " + _purchaser);
+
+    _purchaser.onPurchaseSuccess.AddListener(OnPurchaseSuccess);
+    _purchaser.onPurchaseFailed.AddListener(OnPurchaseFailed);
+
+    _purchaser.AddProduct(kProductIDConsumable, AppcoinsProductType.Consumable);
+
+    //Only call initialize after adding all products!    
+    Debug.Log("Initializing purchaser");
+    _purchaser.InitializePurchasing();
 }
 ```
 
-6. Create an empty game object with the name you want (we named it _Purchaser_) and add a component with the script that has the _Purchaser_ class. Then drag and drop it to the slot named _Purchaser Object_ in _AppcoinsUnity_ game object.
-![picture](Screenshots/Appcoins_Integration_6.gif)
+6. Call SetupPurchaser on Start
 
-7. Now we just have to create a product with the _SKUID_ named _continue_. To do this go to Assets -> Create -> AppCoins Product, add a name of your choice, the _SKUID_ will be _continue_ and add a price of your choice also. Ticking "Add to list" will make sure that the product is automatically added to the product list on the _AppcoinsUnity_ game object. If not, don't forget at the inspector window after you clicked the _AppcoinsUnity_ game object, to go to the Products' slot, put the size to _1_, then drag and drop your created product to Element 0's slot.
-When every field is filled with info, don't forget to press "Apply". This will create the product in a folder called "Products" inside the Assets folder.
-![picture](Screenshots/CreateProduct.gif)
+```
+  void Start () {
+    StartCoroutine ( Load () );
+    SetupPurchaser();
+  }
+```
 
-8. Your game is ready to rock!
+7. Drag the prefab _AppcoinsPurchasing_ to the hierarchy.
+
+8. We set up a label on the top center of the screen and attached it to the purchaser class on the _AppcoinsPurchasing_ object to get the status of the purchasing system.
+
+9. On the hierarchy select Managers and then select Game Manager object. Drag the _AppcoinsPurchasing_ object to the purchaser outlet you just created.
+
+9. Click the _AppcoinsPurchasing_ object and setup the developer address and BDS public key.
+
+```
+Developer Wallet Address = 0xa43646ed0ece7595267ed7a2ff6f499f9f10f3c7
+```
+```
+Developer BDS Public key = MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtxkhS3TueyUW/vA2qUBaP+EmIQdXP40ch83cXCTK+sm3cEupJEIpFYgu7Dbdtcm5qKRcoYXA2Rkn4LQsWJ4Ru7RJSE8c7LB995eF/MF5s+L/zkc7eDJP1fWDnte2W4AGYaVaW7lc0+a8hBL29HaljrnJPLNzDC+o3I125MUpl0opQpOaoIgpqdHJDbaJFcC2+ToUlySwVT50eq7/VrtDUowxrbjhJO5J6BV50hOkDnV8eIF8ZXusBjPz25EPgj7dmuE8tcuCYaANawYMkVReWJ1agXwL4ynYDb9bk/0WdF0gPZd0PKaaFE2QtDZltXKokAkbybuC9mSw8iONoIvRiQIDAQAB
+```
+
+7. Your game is ready to rock!
