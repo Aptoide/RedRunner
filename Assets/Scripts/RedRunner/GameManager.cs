@@ -42,6 +42,8 @@ namespace RedRunner
 			}
 		}
 
+        [SerializeField]
+        private GameObject _debugText;
 		[SerializeField]
 		private Character m_MainCharacter;
         [SerializeField]
@@ -355,6 +357,10 @@ namespace RedRunner
             //Only call initialize after adding all products!    
             Debug.Log("Initializing purchaser");
             _purchaser.InitializePurchasing();
+        }
+
+        public void OnTogglePressed(bool value) {
+            _debugText.SetActive(value);
         }
 	}
 
