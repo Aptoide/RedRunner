@@ -50,6 +50,8 @@ namespace RedRunner
         private Animator _mobileControlsAnimator;
         [SerializeField]
         private Purchaser _purchaser;
+        [SerializeField]
+        private AppcoinsPurchasing _appcoins;
 		[SerializeField]
 		[TextArea ( 3, 30 )]
 		private string m_ShareText;
@@ -291,6 +293,7 @@ namespace RedRunner
 		}
 
         public void OnResetButtonPressed() {
+            AdjustController.LogPopupPaymentEvent();
             _purchaser.BuyProductID(kProductIDConsumable);
         }
 
@@ -330,6 +333,15 @@ namespace RedRunner
 
         private void OnPurchaseSuccess(AppcoinsProduct product)
         {
+            string price = _appcoins.GetAPPCPriceStringForSKU(product.skuID);
+
+            Debug.Log("The price is " + price);
+
+            price = price.Replace(" APPC", "");
+
+            Debug.Log("The price str is " + price);
+
+            AdjustController.LogPaymentCompletedEvent(price);
             Debug.Log("On purchase success called with product: \n skuID: " + product.skuID + " \n type: " + product.productType);
 
             if (product.skuID == kProductIDConsumable)
