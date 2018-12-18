@@ -794,9 +794,9 @@ PlayerSettings:
     UNet: 1
   facebookSdkVersion: 7.9.1
   apiCompatibilityLevel: 2
-  cloudProjectId: 92fef706-5e02-4db8-a929-f6ef5c29e6a0
-  projectName: Red Runner
-  organizationId: nuno-monteiro
+  cloudProjectId: 
+  projectName: 
+  organizationId: 
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0

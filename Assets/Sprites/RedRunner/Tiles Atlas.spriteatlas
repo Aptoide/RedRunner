@@ -39,79 +39,10 @@ SpriteAtlas:
       enableRotation: 1
       enableTightPacking: 1
     variantMultiplier: 1
-    packables:
-    - {fileID: 102900000, guid: 32d6f2d3d6e132542aec16cb1b600c84, type: 3}
+    packables: []
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
-  m_PackedSprites:
-  - {fileID: 21300000, guid: d0fc8af013ce8c8439e4f006b8ca3f81, type: 3}
-  - {fileID: 21300000, guid: bc8359d1574c38a4b838c406611678e1, type: 3}
-  - {fileID: 21300000, guid: 642bd2f1b2de34c419443eb2902ed750, type: 3}
-  - {fileID: 21300000, guid: 21da5ef105f3d4f498f58fbf0f2b0a41, type: 3}
-  - {fileID: 21300000, guid: cacd3a22a85a0b849bd7e7aa6045c7fa, type: 3}
-  - {fileID: 21300000, guid: a9dc2543bbb8ef4418988c6cb79b6169, type: 3}
-  - {fileID: 21300000, guid: b756cba34a7db9e42879efebc5dd68ab, type: 3}
-  - {fileID: 21300000, guid: 36eff0c380c2fe546b7461601115892c, type: 3}
-  - {fileID: 21300000, guid: a03ff075effc3444c9da1ff449be74cf, type: 3}
-  - {fileID: 21300000, guid: ac0550d5d5ded5d4b942b6039eed5cdd, type: 3}
-  - {fileID: 21300000, guid: 2cf1a906957dd9c4f9375ad07381519b, type: 3}
-  - {fileID: 21300000, guid: acea2f67e1ceabc42b8b1ea0565b25b5, type: 3}
-  - {fileID: 21300000, guid: f76d6d08f5e3eb6479920603f89f6969, type: 3}
-  - {fileID: 21300000, guid: 80b8f4286c3317a4687b84b24a0cd967, type: 3}
-  - {fileID: 21300000, guid: 4b578158698326c49ab3aaba3e998ba5, type: 3}
-  - {fileID: 21300000, guid: c7b41d58f40da8a46ad415692420599b, type: 3}
-  - {fileID: 21300000, guid: a314c0d8a3b6f5249bd36d65fe2d18a5, type: 3}
-  - {fileID: 21300000, guid: 82a9c919cdbbeb64bbf13fd44bb27c8e, type: 3}
-  - {fileID: 21300000, guid: 6d51a3f96399504459696f71537520f3, type: 3}
-  - {fileID: 21300000, guid: eaa62d6ae5ff91842996526f22cf0118, type: 3}
-  - {fileID: 21300000, guid: c5122c7ad681de94b87a7bbcda1bd4f4, type: 3}
-  - {fileID: 21300000, guid: e56def9a942bbbf41bf7912f57df2e1e, type: 3}
-  - {fileID: 21300000, guid: 345656faf6dd6f9409264f815cb4fc3d, type: 3}
-  - {fileID: 21300000, guid: b340572b82c922148a72806a0097adba, type: 3}
-  - {fileID: 21300000, guid: 50ccfd2b025c20447af7e28ad3a5fe7d, type: 3}
-  - {fileID: 21300000, guid: 6a1d1f4b43c76da47ac2b98a03afc502, type: 3}
-  - {fileID: 21300000, guid: 6f85b97b2c8a98144ac3b964c3aa8470, type: 3}
-  - {fileID: 21300000, guid: 47b4127caa65d064e9605df6ff09583a, type: 3}
-  - {fileID: 21300000, guid: 693584bd2c2b1d94daa906a4daaa59c2, type: 3}
-  - {fileID: 21300000, guid: 4839909e9ec8a89458603367630205c6, type: 3}
-  - {fileID: 21300000, guid: 6c9f0e3f7d8c5a44f9e9ba448c57f631, type: 3}
-  - {fileID: 21300000, guid: f930908ff9c92184dbefec9c169c4987, type: 3}
-  - {fileID: 21300000, guid: 5e8407bf23f35404887a0f898098fda3, type: 3}
-  - {fileID: 21300000, guid: 6a048fff4cd088141911359be3a60718, type: 3}
-  m_PackedSpriteNamesToIndex:
-  - GrassJoinHillLeft2_Down Shadow
-  - GrassHillLeft
-  - GrassHillLeft2_Down Shadow
-  - DirtDown
-  - DirtLeft
-  - GrassJoinHillLeft2
-  - GrassJoinHillRight2
-  - GrassJoinHillRight&Left2_Down Shadow
-  - GrassLeft
-  - GrassJoinHillRight
-  - DirtRight
-  - GrassCliffMid
-  - GrassJoinHillRight&Left
-  - GrassCliffLeft
-  - Dirt
-  - GrassCliffRight
-  - Column
-  - GrassMid
-  - column_down
-  - GrassJoinHillLeft
-  - GrassHillRight2
-  - Asset 40
-  - GrassColumn
-  - DirtRightCorner
-  - Grass
-  - GrassHillRight2_Down Shadow
-  - GrassRight
-  - GrassJoinHillRight2_Down shadow
-  - column_up
-  - GrassJoinHillRight&Left2
-  - DirtLeftCorner
-  - GrassHillRight
-  - GrassHillLeft2
-  - Asset 41
+  m_PackedSprites: []
+  m_PackedSpriteNamesToIndex: []
   m_Tag: Tiles Atlas
   m_IsVariant: 0
